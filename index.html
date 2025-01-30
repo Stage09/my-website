@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой сайт</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div id="loading">Загрузка...</div>
+    <header>
+        <div class="container">
+            <h1>Мои проекты</h1>
+            <nav>
+                <a href="#" id="admin-login">Войти как админ</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container" id="projects">
+            <h2>Секции проектов</h2>
+            <div id="sections"></div>
+            <div id="admin-panel" class="hidden">
+                <h3>Добавить секцию</h3>
+                <form id="add-section-form">
+                    <label for="section-title">Заголовок:</label>
+                    <input type="text" id="section-title" required>
+                    
+                    <label for="section-content">Описание:</label>
+                    <textarea id="section-content"></textarea>
+                    
+                    <label for="section-link">Ссылка на проект:</label>
+                    <input type="url" id="section-link">
+                    
+                    <label for="section-image">Изображение:</label>
+                    <input type="file" id="section-image" accept="image/*">
+                    
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Мой сайт.</p>
+            <a href="https://t.me/asco_community">Мой ТГ</a>
+            <a href="tel:+998947224520">Номер: +998(94)722-45-20</a>
+            <!-- <a href="https://g.me/ismoil281879@gmail.com">email</a> -->
+        </div>
+    </footer>
+    <script src="./js/main.js"></script>
+</body>
+</html>

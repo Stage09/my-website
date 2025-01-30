@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой сайт</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #333;
+            z-index: 9999;
+        }
+        
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        header nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        main h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        #sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+        
+        .section button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+        }
+        
+        .section button.edit {
+            right: 70px;
+            background: #2196F3;
+        }
+        
+        #admin-panel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        
+        #admin-panel.hidden {
+            display: none;
+        }
+        
+        form label {
+            display: block;
+            margin-top: 0.5rem;
+        }
+        
+        form input, form textarea, form button {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        form button:hover {
+            background-color: #555;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #sections {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Загрузка...</div>
+    <header>
+        <div class="container">
+            <h1>Мои проекты</h1>
+            <nav>
+                <a href="#" id="admin-login">Войти как админ</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container" id="projects">
+            <h2>Секции проектов</h2>
+            <div id="sections"></div>
+            <div id="admin-panel" class="hidden">
+                <h3>Добавить секцию</h3>
+                <form id="add-section-form">
+                    <label for="section-title">Заголовок:</label>
+                    <input type="text" id="section-title" required>
+                    
+                    <label for="section-content">Описание:</label>
+                    <textarea id="section-content"></textarea>
+                    
+                    <label for="section-link">Ссылка на проект:</label>
+                    <input type="url" id="section-link">
+                    
+                    <label for="section-image">Изображение:</label>
+                    <input type="file" id="section-image" accept="image/*">
+                    
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Мой сайт. Все права защищены.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("loading").style.display = "none";
+            loadSections();
+        });
+
+        const adminLogin = document.getElementById("admin-login");
+        const adminPanel = document.getElementById("admin-panel");
+        const addSectionForm = document.getElementById("add-section-form");
+        const sectionsContainer = document.getElementById("sections");
+        
+        const ADMIN_CREDENTIALS = { username: "admin", password: "1234" };
+
+        adminLogin.addEventListener("click", () => {
+            const username = prompt("Введите имя пользователя администратора:");
+            const password = prompt("Введите пароль администратора:");
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                alert("Добро пожаловать, администратор!");
+                adminPanel.classList.remove("hidden");
+            } else {
+                alert("Неверные учетные данные!");
+            }
+        });
+
+        addSectionForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const title = document.getElementById("section-title").value;
+            const content = document.getElementById("section-content").value;
+            const link = document.getElementById("section-link").value;
+            const imageInput = document.getElementById("section-image");
+            let imageUrl = "";
+            if (imageInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    createSection(title, content, link, e.target.result);
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                createSection(title, content, link, imageUrl);
+            }
+            addSectionForm.reset();
+        });
+
+        function createSection(title, content, link, imageUrl) {
+            const section = document.createElement("div");
+            section.classList.add("section");
+            section.innerHTML = `
+                <h3>${title}</h3>
+                <p>${content}</p>
+                ${link ? `<a href="${link}" target="_blank">Посмотреть проект</a>` : ""}
+                ${imageUrl ? `<img src="${imageUrl}" alt="Изображение">` : ""}
+                <button class="edit">Редактировать</button>
+                <button class="delete">Удалить</button>
+            `;
+            
+            section.querySelector(".edit").addEventListener("click", () => {
+                const newTitle = prompt("Изменить заголовок:", title);
+                const newContent = prompt("Изменить описание:", content);
+                const newLink = prompt("Изменить ссылку на проект:", link);
+                if (newTitle) section.querySelector("h3").textContent = newTitle;
+                if (newContent) section.querySelector("p").textContent = newContent;
+                if (newLink) {
+                    let linkElement = section.querySelector("a");
+                    if (!linkElement) {
+                        linkElement = document.createElement("a");
+                        section.appendChild(linkElement);
+                    }
+                    linkElement.href = newLink;
+                    linkElement.textContent = "Посмотреть проект";
+                }
+                saveSections();
+            });
+            
+            section.querySelector(".delete").addEventListener("click", () => {
+                if (confirm("Вы уверены, что хотите удалить эту секцию?")) {
+                    section.remove();
+                    saveSections();
+                }
+            });
+            
+            sectionsContainer.appendChild(section);
+            saveSections();
+        }
+
+        function saveSections() {
+            const sections = Array.from(sectionsContainer.children).map(section => ({
+                title: section.querySelector("h3").textContent,
+                content: section.querySelector("p").textContent,
+                link: section.querySelector("a") ? section.querySelector("a").href : "",
+                imageUrl: section.querySelector("img") ? section.querySelector("img").src : ""
+            }));
+            localStorage.setItem("sections", JSON.stringify(sections));
+        }
+
+        function loadSections() {
+            const savedSections = JSON.parse(localStorage.getItem("sections")) || [];
+            savedSections.forEach(({ title, content, link, imageUrl }) => {
+                createSection(title, content, link, imageUrl);
+            });
+        }
+    </script>
+</body>
+</html>
