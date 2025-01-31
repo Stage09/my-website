@@ -1,8 +1,8 @@
         body {
             font-family: Georgia, 'Times New Roman', Times, serif;
             margin: 0 auto;
-            padding: 0 20px;
-            background-color: #f4f4f9;
+            padding: 0 10px;
+            background-color: #000000;
         }
         
         #loading {
@@ -21,7 +21,9 @@
         }
         
         header {
-            background-color: #333;
+            background-color: #000000;
+            box-shadow: 5px 5px 10px 5px rgba(227, 227, 227, 0.5);           
+            box-shadow: #333;
             color: white;
             padding: 1rem 0;
         }
@@ -70,7 +72,9 @@
         .section {
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+            /* box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5); */
+            box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.5);
             padding: 1rem;
             position: relative;
         }
@@ -132,13 +136,18 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+        .link{
+            text-decoration: none;
+            color: white;
+        }
         
         form button:hover {
             background-color: #555;
         }
         
         footer {
-            background-color: #333;
+            background-color: #000000;
+            box-shadow: 5px 5px 10px 5px rgba(255, 255, 255, 0.5);
             color: white;
             text-align: center;
             padding: 1rem 0;
